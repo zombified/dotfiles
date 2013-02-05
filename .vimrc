@@ -12,6 +12,7 @@ set showcmd                     " display incomplete commands
 filetype on                     " try to detect filetypes
 filetype plugin indent on       " load filetype plugins + indentation
 set hidden                      " keeps buffers in memory so a buffer doesn't need saving when switching between them
+set laststatus=2                " always show statusline
 
 
 "" KEYBINDINGS
@@ -61,6 +62,7 @@ set autoindent
 set list
 set listchars=trail:.
 
+
 "" SEARCHING
 set hlsearch                    " highlight search results
 set incsearch                   " incremental searching
@@ -69,7 +71,8 @@ set smartcase                   " ... unless they contain one or more capital le
 
 
 "" UI
-set colorcolumn=80                  " column 80 gets highlighted
+set nu                          " show line numbers
+set colorcolumn=80              " column 80 gets highlighted
 colors wombat256mod
 " highlight color of column in terminal
 highlight ColorColumn ctermbg=238
@@ -83,6 +86,7 @@ au BufRead *.zcml set filetype=xml
 " NERDTree (https://github.com/scrooloose/nerdtree) - provides file browser
     " this will quit even if the only buffer is NERDTree asdfalasdfasdf asd fas dfa sdf asdf
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeChDirMode=2
 
 " pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
 
@@ -93,4 +97,7 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 
 " Ack (https://github.com/mileszs/ack.vim) - provides recursive in-file search
 let g:ackprg="/opt/local/bin/ack-5.12 -H --nocolor --nogroup --column"
+
+" powerline: https://github.com/Lokaltog/vim-powerline
+
 
