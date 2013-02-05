@@ -1,0 +1,9 @@
+# ignore everything
+*
+
+# except
+!.gitignore
+!.vimrc
+!.gvimrc
+!.vim/autoload
+!.vim/colors
