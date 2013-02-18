@@ -1,3 +1,4 @@
+"" GENERAL CONFIGURATION
 " uncomment to watch .vimrc so settings are automatically reloaded
 "au BufWritePost .vimrc so $MYVIMRC
 
@@ -13,6 +14,21 @@ filetype on                     " try to detect filetypes
 filetype plugin indent on       " load filetype plugins + indentation
 set hidden                      " keeps buffers in memory so a buffer doesn't need saving when switching between them
 set laststatus=2                " always show statusline
+
+" store swap files in fixed location
+if isdirectory($HOME . '/.vim/swap') == 0
+    :silent !mkdir -p ~/.vim/swap > /dev/null 2>&1
+endif
+set dir=~/.vim/swap//,/var/tmp/vimswap/,/tmp/vimswap/,.
+
+" turn on and set the directory for persistent undo's if the option exists
+if exists("+undoofile")
+    if isdirectory($HOME . '/.vim/undo') == 0
+        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+    endif
+    set undodir=~/.vim/undo//,./.vim-undo/,.
+    set undofile
+endif
 
 
 "" KEYBINDINGS
@@ -48,6 +64,12 @@ nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 " remate Esc or Ctrl-[ to jj
 inoremap jj <Esc>
 
+" open a temporary buffer
+map <Leader>. :Scratch<CR>
+
+" open a temporary buffer in a split window
+map <Leader>/ :Sscratch<CR>
+
 
 "" SPACING
 set nowrap                      " don't wrap lines
@@ -73,12 +95,14 @@ set smartcase                   " ... unless they contain one or more capital le
 "" UI
 set nu                          " show line numbers
 set colorcolumn=80              " column 80 gets highlighted
-colors wombat256mod
+"colors wombat256mod
+colors molokai
+let g:molokai_original=1
 " highlight color of column in terminal
 highlight ColorColumn ctermbg=238
 
 
-"" FILETYPE MAPPINGS
+"" FILETYPE OPTIONS
 au BufRead *.zcml set filetype=xml
 
 
@@ -87,8 +111,7 @@ au BufRead *.zcml set filetype=xml
     " this will quit even if the only buffer is NERDTree asdfalasdfasdf asd fas dfa sdf asdf
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeChDirMode=2
-
-" pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " CtrlP (https://github.com/kien/ctrlp.vim) - provides fuzzy filename search
     " ignore irrelevant files
@@ -98,6 +121,13 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 " Ack (https://github.com/mileszs/ack.vim) - provides recursive in-file search
 let g:ackprg="/opt/local/bin/ack-5.12 -H --nocolor --nogroup --column"
 
-" powerline: https://github.com/Lokaltog/vim-powerline
+" vim-session (https://github.com/xolox/vim-session) - provides some handy session management features
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+let g:session_default_to_last='yes'
+
+" pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
+" powerline: https://github.com/Lokaltog/vim-powerline - provides a fancy statusline
+" molokai color scheme: https://github.com/tomasr/molokai
 
 
