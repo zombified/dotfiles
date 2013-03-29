@@ -129,5 +129,6 @@ let g:session_default_to_last='yes'
 " pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
 " powerline: https://github.com/Lokaltog/vim-powerline - provides a fancy statusline
 " molokai color scheme: https://github.com/tomasr/molokai
+" vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
 
 
