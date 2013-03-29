@@ -46,7 +46,7 @@ nnoremap <Leader><Leader> <c-^>
 " jump to next pep8 violation with ',8'
 let g:pep8_map='<Leader>8'
 
-" strip all whitespace at end of file
+" strip all whitespace at end of file with ',<space>'
 "nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
@@ -62,7 +62,7 @@ endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 " remate Esc or Ctrl-[ to jj
-inoremap jj <Esc>
+"inoremap jj <Esc>
 
 " open a temporary buffer
 map <Leader>. :Scratch<CR>
@@ -82,7 +82,7 @@ set autoindent
 
 " highlight EOL spaces
 set list
-set listchars=trail:.
+set listchars=tab:>.,trail:.
 
 
 "" SEARCHING
