@@ -108,9 +108,10 @@ au BufRead *.zcml set filetype=xml
 
 "" PLUGIN OPTIONS
 " NERDTree (https://github.com/scrooloose/nerdtree) - provides file browser
-    " this will quit even if the only buffer is NERDTree asdfalasdfasdf asd fas dfa sdf asdf
+    " this will quit even if the only buffer is NERDTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeChDirMode=2
+    " hide files with these extensions in NERDTree
 let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " CtrlP (https://github.com/kien/ctrlp.vim) - provides fuzzy filename search
