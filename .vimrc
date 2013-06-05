@@ -30,6 +30,9 @@ if exists("+undoofile")
     set undofile
 endif
 
+" disable autoindent on <Return> in html files
+autocmd FileType html setlocal indentkeys-=*<Return>
+
 
 "" KEYBINDINGS
 let mapleader = ","             " change from '\' to ','
@@ -126,6 +129,13 @@ let g:ackprg="/opt/local/bin/ack-5.12 -H --nocolor --nogroup --column"
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last='yes'
+
+" vim-notes (https://github.com/xolox/vim-notes)
+let g:notes_directories=['~/Documents/notes/']
+let g:notes_suffix='.md'
+let g:notes_title_sync='rename_file'
+let g:notes_smart_quotes=0
+
 
 " pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
 " powerline: https://github.com/Lokaltog/vim-powerline - provides a fancy statusline
