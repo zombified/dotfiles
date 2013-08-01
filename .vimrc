@@ -141,5 +141,6 @@ let g:notes_smart_quotes=0
 " powerline: https://github.com/Lokaltog/vim-powerline - provides a fancy statusline
 " molokai color scheme: https://github.com/tomasr/molokai
 " vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
+" vim-misc: https://github.com/xolox/vim-misc.git
 
 
