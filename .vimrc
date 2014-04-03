@@ -14,6 +14,7 @@ filetype on                     " try to detect filetypes
 filetype plugin indent on       " load filetype plugins + indentation
 set hidden                      " keeps buffers in memory so a buffer doesn't need saving when switching between them
 set laststatus=2                " always show statusline
+"set noshowmode                  " hide the normal mode -- handled by powerline
 
 " store swap files in fixed location
 if isdirectory($HOME . '/.vim/swap') == 0
@@ -30,9 +31,6 @@ if exists("+undoofile")
     set undofile
 endif
 
-" disable autoindent on <Return> in html files
-autocmd FileType html setlocal indentkeys-=*<Return>
-
 
 "" KEYBINDINGS
 let mapleader = ","             " change from '\' to ','
@@ -47,7 +45,7 @@ let g:ctrlp_map = '<c-p>'
 nnoremap <Leader><Leader> <c-^>
 
 " jump to next pep8 violation with ',8'
-let g:pep8_map='<Leader>8'
+"let g:pep8_map='<Leader>8'
 
 " strip all whitespace at end of file with ',<space>'
 "nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -82,6 +80,7 @@ set shiftwidth=4                " ...
 set expandtab                   " use spaces, not tabs
 set backspace=indent,eol,start  " backspace through everything in insert mode
 set autoindent
+set autowrite                   " auto save when switching buffers
 
 " highlight EOL spaces
 set list
@@ -98,15 +97,31 @@ set smartcase                   " ... unless they contain one or more capital le
 "" UI
 set nu                          " show line numbers
 set colorcolumn=80              " column 80 gets highlighted
-"colors wombat256mod
-colors molokai
-let g:molokai_original=1
+if has('gui_running')
+    set background=light
+else
+    set background=dark
+endif
+let g:solarized_termtrans = 1
+colorscheme solarized
+"colors molokai
+"let g:molokai_original=1
 " highlight color of column in terminal
 highlight ColorColumn ctermbg=238
 
 
 "" FILETYPE OPTIONS
+" for making zcml's read as xml
 au BufRead *.zcml set filetype=xml
+
+" disable autoindent on <Return> in html files
+au FileType html setl indentkeys-=*<Return>
+
+" set spell check and autowrap text in emails
+au FileType mail set spell spelllang=en_us fo+=aw
+
+" set folding method for python files
+au FileType python set foldmethod=indent
 
 
 "" PLUGIN OPTIONS
@@ -136,11 +151,25 @@ let g:notes_suffix='.md'
 let g:notes_title_sync='rename_file'
 let g:notes_smart_quotes=0
 
+" airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
+    " auto include powerline font symbols
+"let g:airline_powerline_fonts = 1
 
-" pyflakes (https://github.com/mitechie/pyflakes-pathogen) - provides python pep8 syntax checking
-" powerline: https://github.com/Lokaltog/vim-powerline - provides a fancy statusline
+    " this will disable the short pause when leaving insert mode in the terminal
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
+
+
+" syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
 " molokai color scheme: https://github.com/tomasr/molokai
+" solarized  color scheme: https://github.com/altercation/vim-colors-solarized
 " vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
 " vim-misc: https://github.com/xolox/vim-misc.git
-
+" recover: https://github.com/chrisbra/Recover.vim
 

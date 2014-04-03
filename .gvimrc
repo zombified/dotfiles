@@ -2,7 +2,10 @@
 set guioptions=aAce        " get's rid of the menu, toolbar and scrollbar junk
 set guioptions-=mT
 "colorscheme darkspectrum
-colorscheme molokai
+"colorscheme molokai
+set background=light
+colorscheme solarized
 " highlight color of the colorcolumn in the GUI
-highlight ColorColumn guibg=gray11
+highlight ColorColumn guibg=#C4C1AF
+set guifont=Anonymice Powerline:h13
 
