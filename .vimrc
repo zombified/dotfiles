@@ -115,6 +115,7 @@ colorscheme solarized
 "let g:molokai_original=1
 " highlight color of column in terminal
 highlight ColorColumn ctermbg=238
+highlight clear SignColumn
 
 
 "" FILETYPE OPTIONS
@@ -172,6 +173,8 @@ if ! has('gui_running')
     augroup END
 endif
 
+" signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
+let g:signify_vcs_list = [ 'git', 'hg' ]
 
 " syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
 " molokai color scheme: https://github.com/tomasr/molokai
