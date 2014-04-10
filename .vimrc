@@ -31,6 +31,13 @@ if exists("+undoofile")
     set undofile
 endif
 
+" make vim show relative numbers when the window is out of focus, or when
+" out of insert mode
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+au InsertEnter * :set number
+au InsertLeave * :set relativenumber
+
 
 "" KEYBINDINGS
 let mapleader = ","             " change from '\' to ','
