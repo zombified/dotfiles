@@ -42,9 +42,6 @@ au InsertLeave * :set relativenumber
 "" KEYBINDINGS
 let mapleader = ","             " change from '\' to ','
 
-" toggle NERDTree with ',n'
-map <Leader>n :NERDTreeToggle<CR>
-
 " open CtrlP with 'ctrl-p'
 let g:ctrlp_map = '<c-p>'
 
@@ -133,12 +130,8 @@ au FileType python set foldmethod=indent
 
 
 "" PLUGIN OPTIONS
-" NERDTree (https://github.com/scrooloose/nerdtree) - provides file browser
-    " this will quit even if the only buffer is NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeChDirMode=2
-    " hide files with these extensions in NERDTree
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+" netrw (built in)
+map <Leader>n :e.<CR>
 
 " CtrlP (https://github.com/kien/ctrlp.vim) - provides fuzzy filename search
     " ignore irrelevant files
@@ -176,6 +169,7 @@ endif
 " signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
 let g:signify_vcs_list = [ 'git', 'hg' ]
 
+" vinegar (git clone https://github.com/tpope/vim-vinegar.git) - provides some nice configuration and additions to netrw
 " syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
 " molokai color scheme: https://github.com/tomasr/molokai
 " solarized  color scheme: https://github.com/altercation/vim-colors-solarized
