@@ -14,7 +14,6 @@ filetype on                     " try to detect filetypes
 filetype plugin indent on       " load filetype plugins + indentation
 set hidden                      " keeps buffers in memory so a buffer doesn't need saving when switching between them
 set laststatus=2                " always show statusline
-"set noshowmode                  " hide the normal mode -- handled by powerline
 
 " store swap files in fixed location
 if isdirectory($HOME . '/.vim/swap') == 0
@@ -42,14 +41,8 @@ au InsertLeave * :set relativenumber
 "" KEYBINDINGS
 let mapleader = ","             " change from '\' to ','
 
-" open CtrlP with 'ctrl-p'
-let g:ctrlp_map = '<c-p>'
-
 " switch to previous buffer with ',,'
 nnoremap <Leader><Leader> <c-^>
-
-" jump to next pep8 violation with ',8'
-"let g:pep8_map='<Leader>8'
 
 " strip all whitespace at end of file with ',<space>'
 "nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
@@ -65,15 +58,6 @@ function! <SID>StripTrailingWhitespace()
     call cursor(l, c)
 endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
-
-" remate Esc or Ctrl-[ to jj
-"inoremap jj <Esc>
-
-" open a temporary buffer
-map <Leader>. :Scratch<CR>
-
-" open a temporary buffer in a split window
-map <Leader>/ :Sscratch<CR>
 
 
 "" SPACING
@@ -108,16 +92,27 @@ else
 endif
 let g:solarized_termtrans = 1
 colorscheme solarized
-"colors molokai
-"let g:molokai_original=1
 " highlight color of column in terminal
 highlight ColorColumn ctermbg=238
 highlight clear SignColumn
+
+" this will disable the short pause when leaving insert mode in the terminal
+if ! has('gui_running')
+    set ttimeoutlen=10
+    augroup FastEscape
+        autocmd!
+        au InsertEnter * set timeoutlen=0
+        au InsertLeave * set timeoutlen=1000
+    augroup END
+endif
 
 
 "" FILETYPE OPTIONS
 " for making zcml's read as xml
 au BufRead *.zcml set filetype=xml
+
+" for making md read as markdown
+au BufRead *.md set filetype=markdown
 
 " disable autoindent on <Return> in html files
 au FileType html setl indentkeys-=*<Return>
@@ -133,47 +128,19 @@ au FileType python set foldmethod=indent
 " netrw (built in)
 map <Leader>n :e.<CR>
 
-" CtrlP (https://github.com/kien/ctrlp.vim) - provides fuzzy filename search
-    " ignore irrelevant files
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.pyo
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-
-" Ack (https://github.com/mileszs/ack.vim) - provides recursive in-file search
-let g:ackprg="/opt/local/bin/ack-5.12 -H --nocolor --nogroup --column"
-
-" vim-session (https://github.com/xolox/vim-session) - provides some handy session management features
-let g:session_autosave='yes'
-let g:session_autoload='yes'
-let g:session_default_to_last='yes'
-
-" vim-notes (https://github.com/xolox/vim-notes)
-let g:notes_directories=['~/Documents/notes/']
-let g:notes_suffix='.md'
-let g:notes_title_sync='rename_file'
-let g:notes_smart_quotes=0
-
-" airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
-    " auto include powerline font symbols
-"let g:airline_powerline_fonts = 1
-
-    " this will disable the short pause when leaving insert mode in the terminal
-if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
-
 " signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
 let g:signify_vcs_list = [ 'git', 'hg' ]
 
+" netrw (the latest version):
+"   * get vimball: http://www.vim.org/scripts/script.php?script_id=1075
+"   * $ vim /path/to/vimball.vba
+"   * !mkdir -p ~/.vim/bundle/netrw
+"   * :UseVimball ~/.vim/bundle/netrw/
 " vinegar (git clone https://github.com/tpope/vim-vinegar.git) - provides some nice configuration and additions to netrw
+" airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
 " syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
-" molokai color scheme: https://github.com/tomasr/molokai
+" pyflakes-pathogen (git clone https://github.com/mitechie/pyflakes-pathogen.git) - provides python syntax checking
+" recover: https://github.com/chrisbra/Recover.vima - add 'Diff' option when opening file with a swp file already existing
 " solarized  color scheme: https://github.com/altercation/vim-colors-solarized
 " vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
-" vim-misc: https://github.com/xolox/vim-misc.git
-" recover: https://github.com/chrisbra/Recover.vim
 
