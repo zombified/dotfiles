@@ -7,5 +7,6 @@ set background=light
 colorscheme solarized
 " highlight color of the colorcolumn in the GUI
 highlight ColorColumn guibg=#C4C1AF
-set guifont=Anonymice Powerline:h13
-
+"set guifont=Source\ Code\ Pro:h12
+"set guifont=Fira\ Mono:h10
+set guifont=M\+\ 2m\ regular:h10

@@ -59,6 +59,9 @@ function! <SID>StripTrailingWhitespace()
 endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
+" toggle nerdtree with ',n'
+"map <Leader><n> :NERDTreeToggle<CR>
+
 
 "" SPACING
 set nowrap                      " don't wrap lines
@@ -85,15 +88,16 @@ set smartcase                   " ... unless they contain one or more capital le
 "" UI
 set nu                          " show line numbers
 set colorcolumn=80              " column 80 gets highlighted
-if has('gui_running')
-    set background=light
-else
-    set background=dark
-endif
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+set background=light
 let g:solarized_termtrans = 1
 colorscheme solarized
 " highlight color of column in terminal
-highlight ColorColumn ctermbg=238
+"highlight ColorColumn ctermbg=238
 highlight clear SignColumn
 
 " this will disable the short pause when leaving insert mode in the terminal
@@ -131,16 +135,11 @@ map <Leader>n :e.<CR>
 " signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
 let g:signify_vcs_list = [ 'git', 'hg' ]
 
-" netrw (the latest version):
-"   * get vimball: http://www.vim.org/scripts/script.php?script_id=1075
-"   * $ vim /path/to/vimball.vba
-"   * !mkdir -p ~/.vim/bundle/netrw
-"   * :UseVimball ~/.vim/bundle/netrw/
+" vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
 " vinegar (git clone https://github.com/tpope/vim-vinegar.git) - provides some nice configuration and additions to netrw
 " airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
 " syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
 " pyflakes-pathogen (git clone https://github.com/mitechie/pyflakes-pathogen.git) - provides python syntax checking
 " recover: https://github.com/chrisbra/Recover.vima - add 'Diff' option when opening file with a swp file already existing
 " solarized  color scheme: https://github.com/altercation/vim-colors-solarized
-" vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
 
