@@ -60,7 +60,7 @@ endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 " toggle nerdtree with ',n'
-"map <Leader><n> :NERDTreeToggle<CR>
+map <Leader>n :NERDTreeToggle<CR>
 
 
 "" SPACING
@@ -129,8 +129,13 @@ au FileType python set foldmethod=indent
 
 
 "" PLUGIN OPTIONS
+" NERDTree (https://github.com/scrooloose/nerdtree) - drawer style file browser
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let NERDTreeChDirMode=2
+let NERDTreeIgnore = ['\.pyc%', '\.pyo$']
+
 " netrw (built in)
-map <Leader>n :e.<CR>
+"map <Leader>n :e.<CR>
 
 " signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
 let g:signify_vcs_list = [ 'git', 'hg' ]
