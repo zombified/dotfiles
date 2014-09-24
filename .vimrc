@@ -95,7 +95,8 @@ set colorcolumn=80              " column 80 gets highlighted
 "endif
 set background=light
 let g:solarized_termtrans = 1
-colorscheme solarized
+"colorscheme solarized
+colorscheme Tomorrow-Night-Bright
 " highlight color of column in terminal
 "highlight ColorColumn ctermbg=238
 highlight clear SignColumn
