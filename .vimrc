@@ -133,7 +133,7 @@ au FileType python set foldmethod=indent
 " NERDTree (https://github.com/scrooloose/nerdtree) - drawer style file browser
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let NERDTreeChDirMode=2
-let NERDTreeIgnore = ['\.pyc%', '\.pyo$']
+let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 
 " netrw (built in)
 "map <Leader>n :e.<CR>
