@@ -96,7 +96,8 @@ set colorcolumn=80              " column 80 gets highlighted
 set background=light
 let g:solarized_termtrans = 1
 "colorscheme solarized
-colorscheme Tomorrow-Night-Bright
+"colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night
 " highlight color of column in terminal
 "highlight ColorColumn ctermbg=238
 highlight clear SignColumn
@@ -141,10 +142,12 @@ let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
 " signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
 let g:signify_vcs_list = [ 'git', 'hg' ]
 
+" syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
+let g:syntastic_python_checkers = ['flake8']
+
 " vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
 " vinegar (git clone https://github.com/tpope/vim-vinegar.git) - provides some nice configuration and additions to netrw
 " airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
-" syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
 " pyflakes-pathogen (git clone https://github.com/mitechie/pyflakes-pathogen.git) - provides python syntax checking
 " recover: https://github.com/chrisbra/Recover.vima - add 'Diff' option when opening file with a swp file already existing
 " solarized  color scheme: https://github.com/altercation/vim-colors-solarized
