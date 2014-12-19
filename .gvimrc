@@ -9,5 +9,5 @@ colorscheme Tomorrow-Night-Bright
 " highlight color of the colorcolumn in the GUI
 highlight ColorColumn guibg=#C4C1AF
 "set guifont=Source\ Code\ Pro:h12
-"set guifont=Fira\ Mono:h10
-set guifont=M\+\ 2m\ regular:h10
+set guifont=Fira\ Mono\ Medium:h11
+"set guifont=M\+\ 2m\ regular:h10
