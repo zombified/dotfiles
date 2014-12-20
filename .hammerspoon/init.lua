@@ -1,5 +1,32 @@
+-- Reload the HammerSpoon config
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "R", function()
+    hs.reload()
+end)
 
--- WINDOW MOVEMENT ------------------------------------------------------------
+
+-- WINDOWS --------------------------------------------------------------------
+
+-- GO TO FULLSCREEN
+hs.hotkey.bind({"cmd", "alt"}, "f", function()
+    local win = hs.window.focusedWindow()
+
+    -- error
+    if not win then
+        return
+    end
+
+    -- if the app is full screen, just de-fullscreen it
+    if win:isFullScreen() then
+        win:setFullScreen(false)
+        return
+    end
+
+    -- try to full screen the app, and if that fails, just size it to the
+    -- screen it's on
+    if not win:setFullScreen(true) then
+        win:maximize()
+    end
+end)
 
 -- RIGHT, HALF-SCREEN
 hs.hotkey.bind({"cmd", "alt"}, "Right", function()
@@ -61,19 +88,3 @@ hs.hotkey.bind({"cmd", "alt"}, "Down", function()
     win:setFrame(f, 0)
 end)
 
--- GO TO FULLSCREEN
-hs.hotkey.bind({"cmd", "alt"}, "f", function()
-    local win = hs.window.focusedWindow()
-
-    -- if the app is full screen, just de-fullscreen it
-    if win:isFullScreen() then
-        win:setFullScreen(false)
-        return
-    end
-
-    -- try to full screen the app, and if that fails, just size it to the
-    -- screen it's on
-    if not win:setFullScreen(true) then
-        win:maximize()
-    end
-end)

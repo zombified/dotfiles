@@ -1,7 +1,7 @@
 "set transparency=2          " a very light amount of transparency
 set guioptions=aAce        " get's rid of the menu, toolbar and scrollbar junk
 set guioptions-=mT
-colorscheme Tomorrow-Night-Bright
+colorscheme Tomorrow-Night
 "colorscheme darkspectrum
 "colorscheme molokai
 "set background=light
