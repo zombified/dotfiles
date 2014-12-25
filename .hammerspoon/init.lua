@@ -90,61 +90,66 @@ end)
 
 -- Move to next screen on right/to the east
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Right", function()
-    -- no point in moving a window if there are no screens to move it too
-    local allscreens = hs.screen.allScreens()
-    local cnt = 0
-    -- don't know why, but table.getn is a "nil value"
-    for k, v in pairs(allscreens) do
-        cnt = cnt + 1
-    end
-    if cnt < 1 then
-        return
-    end
-
     local win = hs.window.focusedWindow()
     local f = win:frame()
     local screen = win:screen()
     local sf = screen:frame()
 
-    local east_screen = screen:toEast()
-    -- no point in moving the window if there is no easterly screen
-    if east_screen == nil then
+    local isfull = win:isFullScreen()
+    local screen_east = screen:toEast()
+    if not screen_east then
         return
     end
-    local esf = east_screen:frame()
 
-    f.x = esf.x
+    local movewindow = function()
+        hs.window.animationDuration = 0
+        win:moveToScreen(screen_east)
+        if isfull then
+            hs.timer.doAfter(.2, function()
+                if not win:setFullScreen(true) then
+                    win:maximize()
+                end
+            end)
+        end
+    end
 
-    win:setFrame(f, 0)
+    if isfull then
+        win:setFullScreen(false)
+        hs.timer.doAfter(1, movewindow)
+    else
+        movewindow()
+    end
 end)
 
 -- Move to next screen on left
 hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
-    -- no point in moving a window if there are no screens to move it too
-    local allscreens = hs.screen.allScreens()
-    local cnt = 0
-    -- don't know why, but table.getn is a "nil value"
-    for k, v in pairs(allscreens) do
-        cnt = cnt + 1
-    end
-    if cnt < 1 then
-        return
-    end
-
     local win = hs.window.focusedWindow()
     local f = win:frame()
     local screen = win:screen()
     local sf = screen:frame()
 
-    local west_screen = screen:toWest()
-    -- no point in moving the window if there is no easterly screen
-    if west_screen == nil then
+    local isfull = win:isFullScreen()
+    local screen_west = screen:toWest()
+    if not screen_west then
         return
     end
-    local wsf = west_screen:frame()
 
-    f.x = wsf.x
+    local movewindow = function()
+        hs.window.animationDuration = 0
+        win:moveToScreen(screen_west)
+        if isfull then
+            hs.timer.doAfter(.2, function()
+                if not win:setFullScreen(true) then
+                    win:maximize()
+                end
+            end)
+        end
+    end
 
-    win:setFrame(f, 0)
-
+    if isfull then
+        win:setFullScreen(false)
+        hs.timer.doAfter(1, movewindow)
+    else
+        movewindow()
+    end
 end)
