@@ -129,6 +129,9 @@ au FileType mail set spell spelllang=en_us fo+=aw
 " set folding method for python files
 au FileType python set foldmethod=indent
 
+" nim should be inteded with 2 spaces
+au FileType nim setlocal shiftwidth=2 tabstop=2
+
 
 "" PLUGIN OPTIONS
 " NERDTree (https://github.com/scrooloose/nerdtree) - drawer style file browser
