@@ -103,6 +103,12 @@ let g:airline_theme='PaperColor'
 " highlight color of column in terminal
 "highlight ColorColumn ctermbg=238
 highlight clear SignColumn
+" highlight current line
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
 
 " this will disable the short pause when leaving insert mode in the terminal
 if ! has('gui_running')
