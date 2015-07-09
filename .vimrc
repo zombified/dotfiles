@@ -88,16 +88,18 @@ set smartcase                   " ... unless they contain one or more capital le
 "" UI
 set nu                          " show line numbers
 set colorcolumn=80              " column 80 gets highlighted
+colorscheme PaperColor
+let g:airline_theme='PaperColor'
 "if has('gui_running')
 "    set background=light
 "else
 "    set background=dark
 "endif
-set background=light
-let g:solarized_termtrans = 1
+"set background=light
+"let g:solarized_termtrans = 1
 "colorscheme solarized
 "colorscheme Tomorrow-Night-Bright
-colorscheme Tomorrow-Night
+"colorscheme Tomorrow-Night
 " highlight color of column in terminal
 "highlight ColorColumn ctermbg=238
 highlight clear SignColumn
@@ -153,5 +155,5 @@ let g:syntastic_python_checkers = ['flake8']
 " airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
 " pyflakes-pathogen (git clone https://github.com/mitechie/pyflakes-pathogen.git) - provides python syntax checking
 " recover: https://github.com/chrisbra/Recover.vima - add 'Diff' option when opening file with a swp file already existing
-" solarized  color scheme: https://github.com/altercation/vim-colors-solarized
-
+" solarized color scheme: https://github.com/altercation/vim-colors-solarized
+" Paper Color theme https://github.com/NLKNguyen/papercolor-theme.git
