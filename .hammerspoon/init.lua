@@ -153,3 +153,69 @@ hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Left", function()
         movewindow()
     end
 end)
+
+-- Move to next screen on top/to the north
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Up", function()
+    local win = hs.window.focusedWindow()
+    local f = win:frame()
+    local screen = win:screen()
+    local sf = screen:frame()
+
+    local isfull = win:isFullScreen()
+    local screen_north = screen:toNorth()
+    if not screen_north then
+        return
+    end
+
+    local movewindow = function()
+        hs.window.animationDuration = 0
+        win:moveToScreen(screen_north)
+        if isfull then
+            hs.timer.doAfter(.2, function()
+                if not win:setFullScreen(true) then
+                    win:maximize()
+                end
+            end)
+        end
+    end
+
+    if isfull then
+        win:setFullScreen(false)
+        hs.timer.doAfter(1, movewindow)
+    else
+        movewindow()
+    end
+end)
+
+-- Move to next screen on left
+hs.hotkey.bind({"cmd", "alt", "ctrl"}, "Down", function()
+    local win = hs.window.focusedWindow()
+    local f = win:frame()
+    local screen = win:screen()
+    local sf = screen:frame()
+
+    local isfull = win:isFullScreen()
+    local screen_south = screen:toSouth()
+    if not screen_south then
+        return
+    end
+
+    local movewindow = function()
+        hs.window.animationDuration = 0
+        win:moveToScreen(screen_south)
+        if isfull then
+            hs.timer.doAfter(.2, function()
+                if not win:setFullScreen(true) then
+                    win:maximize()
+                end
+            end)
+        end
+    end
+
+    if isfull then
+        win:setFullScreen(false)
+        hs.timer.doAfter(1, movewindow)
+    else
+        movewindow()
+    end
+end)
