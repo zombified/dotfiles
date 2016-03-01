@@ -1,51 +1,124 @@
-"" GENERAL CONFIGURATION
-" uncomment to watch .vimrc so settings are automatically reloaded
-"au BufWritePost .vimrc so $MYVIMRC
+call plug#begin('~/.config/nvim/pluggged')
 
-" let pathogen take care of all plugin loading
-execute pathogen#infect()
+  " git diff indicators
+  Plug 'airblade/vim-gitgutter'
 
-set textwidth=0
-set nocompatible                " only vim feaures (no legacy vi features)
-syntax enable                   " syntax highlighting, yay!
-set encoding=utf-8              " default file encoding
-set showcmd                     " display incomplete commands
-filetype on                     " try to detect filetypes
-filetype plugin indent on       " load filetype plugins + indentation
-set hidden                      " keeps buffers in memory so a buffer doesn't need saving when switching between them
-set laststatus=2                " always show statusline
+  " nice info bar
+  Plug 'bling/vim-airline'
 
-" store swap files in fixed location
-if isdirectory($HOME . '/.vim/swap') == 0
-    :silent !mkdir -p ~/.vim/swap > /dev/null 2>&1
-endif
-set dir=~/.vim/swap//,/var/tmp/vimswap/,/tmp/vimswap/,.
+  " error checking/linting
+  Plug 'benekastah/neomake'
 
-" turn on and set the directory for persistent undo's if the option exists
-if exists("+undoofile")
-    if isdirectory($HOME . '/.vim/undo') == 0
-        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
-    endif
-    set undodir=~/.vim/undo//,./.vim-undo/,.
-    set undofile
-endif
+  " netrw enhancement
+  Plug 'tpope/vim-vinegar'
 
-" make vim show relative numbers when the window is out of focus, or when
-" out of insert mode
+  " fuzzy file/buffer/etc matchet and opener
+  Plug 'ctrlpvim/ctrlp.vim'
+
+  " file-drawer style navigation
+  "Plug 'scrooloose/nerdtree'
+
+  " colors/syntax for ansible
+  Plug 'pearofducks/ansible-vim'
+
+  " options and automatic handling for swapfile recovery
+  Plug 'chrisbra/Recover.vim'
+
+call plug#end()
+
+
+filetype on                 " enable file type detection
+filetype plugin indent on   " enable per-file type indentation
+syntax enable               " default syntax highlight enabled 
+
+" backspace through everything in insert mode
+set backspace=indent,eol,start    
+
+set textwidth=0             " lines pasted as-is, not split to a max width
+set encoding=utf-8          " it's 2016, this should be the default now.
+set showcmd                 " display partial command info (lines selected, etc)
+set hidden                  " keep buffers in memory
+set laststatus=2            " always show status line
+set ruler                   " show location info in status line
+set wildmenu                " show completions when <Tab>ing in the command line
+set scrolloff=1             " num lines above and below cursor to be shown always
+set sidescrolloff=5         " num cols left and right of cursor to be shown always
+set display+=lastline       " show as much of really long lines as possible
+set autoread                " automatically reload files changed outside of nvim
+set history=1000            " keep 1000 lines of command history
+set hlsearch                " highlight search results
+set incsearch               " skip to first match immediately when searching
+set ignorecase              " searches are case insensitive...
+set smartcase               " ...unless the search contains capital letters
+set nu                      " show line numbers
+
+set autoindent              " indent based on previous indentation
+set smarttab                " insert tabs based on previous indentation
+set complete-=i             " disable scanning includes to complete (rely on ctags, etc -- faster)
+set nowrap                  " don't wrap lines
+set tabstop=4               " a tab is 4 spaces...
+set softtabstop=4           " ...
+set shiftwidth=4            " ...
+set expandtab               " use spaces, not tabs
+set autowrite               " autosave when switching buffers
+
+
+" characters to highlight in 'list' mode (and enable list mode by default)
+set listchars=tab:>.,trail:.
+set list
+
+
+" show relative numbers when window out of focus and not in insert mode
 au FocusLost * :set number
 au FocusGained * :set relativenumber
 au InsertEnter * :set number
 au InsertLeave * :set relativenumber
 
 
-"" KEYBINDINGS
-let mapleader = ","             " change from '\' to ','
+" store swap files in a fixed location, makes management a lot easier
+" and doesn't clutter up a source directory
+if isdirectory($HOME . '/.config/nvim/swap') == 0
+  :silent !mkdir -p $HOME/.config/nvim/swap > /dev/null 2>&1
+endif
+set dir=$HOME/.config/nvim/swap/,/var/tmp/nvimswap/,/tmp/nvimswap,.
 
-" switch to previous buffer with ',,'
+" turn on and set the directory for persistent undo's (if the option exists)
+if isdirectory($HOME . '/.config/nvim/undo') == 0
+  :silent !mkdir -p $HOME/.config/nvim/undo > /dev/null 2>&1
+endif
+set undodir=$HOME/.config/nvim/undo/,./.vim-undo/,.
+set undofile
+
+
+colorscheme Tomorrow-Night-Eighties
+" Allow color schemes to do bright colors without forcing bold.
+if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
+  set t_Co=16
+endif
+
+" reset sign column display
+highlight clear SignColumn
+
+" highlight current line
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+" higlight column 80
+set colorcolumn=80        " highlight column 80
+
+
+" == KEY REBINDING ============================================================
+
+" make leader key more handy
+let mapleader = ","
+
+" switch buffers with ',,'
 nnoremap <Leader><Leader> <c-^>
 
 " strip all whitespace at end of file with ',<space>'
-"nnoremap <Leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -60,68 +133,11 @@ endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 " toggle nerdtree with ',n'
-map <Leader>n :NERDTreeToggle<CR>
+"map <Leader>n :NERDTreeToggle<CR>
 
 
-"" SPACING
-set nowrap                      " don't wrap lines
-set tabstop=4                   " a tab is 4 spaces ...
-set softtabstop=4               " ...
-set shiftwidth=4                " ...
-set expandtab                   " use spaces, not tabs
-set backspace=indent,eol,start  " backspace through everything in insert mode
-set autoindent
-set autowrite                   " auto save when switching buffers
+" == FILE TYPE OPTIONS ========================================================
 
-" highlight EOL spaces
-set list
-set listchars=tab:>.,trail:.
-
-
-"" SEARCHING
-set hlsearch                    " highlight search results
-set incsearch                   " incremental searching
-set ignorecase                  " searches are case insensitive, ...
-set smartcase                   " ... unless they contain one or more capital letters
-
-
-"" UI
-set nu                          " show line numbers
-set colorcolumn=80              " column 80 gets highlighted
-"colorscheme PaperColor
-"let g:airline_theme='PaperColor'
-"if has('gui_running')
-"    set background=light
-"else
-"    set background=dark
-"endif
-"set background=light
-"let g:solarized_termtrans = 1
-"colorscheme solarized
-"colorscheme Tomorrow-Night-Bright
-colorscheme Tomorrow-Night
-" highlight color of column in terminal
-"highlight ColorColumn ctermbg=238
-highlight clear SignColumn
-" highlight current line
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
-
-" this will disable the short pause when leaving insert mode in the terminal
-if ! has('gui_running')
-    set ttimeoutlen=10
-    augroup FastEscape
-        autocmd!
-        au InsertEnter * set timeoutlen=0
-        au InsertLeave * set timeoutlen=1000
-    augroup END
-endif
-
-
-"" FILETYPE OPTIONS
 " for making zcml's read as xml
 au BufRead *.zcml set filetype=xml
 
@@ -131,11 +147,8 @@ au BufRead *.md set filetype=markdown
 " disable autoindent on <Return> in html files
 au FileType html setl indentkeys-=*<Return>
 
-" set spell check and autowrap text in emails
-au FileType mail set spell spelllang=en_us fo+=aw
-
 " set folding method, etc for python files
-au FileType python set foldmethod=indent
+" my defaults are for 4 spaces, but I like being certain...
 au BufNewFile,BufRead *.py set tabstop=4
 au BufNewFile,BufRead *.py set softtabstop=4
 au BufNewFile,BufRead *.py set shiftwidth=4
@@ -143,7 +156,8 @@ au BufNewFile,BufRead *.py set expandtab
 au BufNewFile,BufRead *.py set autoindent
 au BufNewFile,BufRead *.py set fileformat=unix
 
-" html, js, and css tend to use 2 spaces... which is stupid, but whatever.
+" html, js, and css tend to use 2 spaces... which is stupid, but whatever,
+" it's used more often than not so might as well play nice
 au BufNewFile,BufRead *.html,*.css,*.js set tabstop=2
 au BufNewFile,BufRead *.html,*.css,*.js set softtabstop=2
 au BufNewFile,BufRead *.html,*.css,*.js set shiftwidth=2
@@ -153,25 +167,18 @@ au BufNewFile,BufRead *.html,*.css,*.js set expandtab
 au FileType nim setlocal shiftwidth=2 tabstop=2
 
 
-"" PLUGIN OPTIONS
-" NERDTree (https://github.com/scrooloose/nerdtree) - drawer style file browser
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-let NERDTreeChDirMode=2
-let NERDTreeIgnore = ['\.pyc$', '\.pyo$']
+" == PLUGIN OPTIONS ===========================================================
 
-" netrw (built in)
-"map <Leader>n :e.<CR>
+" neomake
+autocmd! BufWritePost * Neomake
 
-" signify (https://github.com/mhinz/vim-signify) - shows lines that have been added, changed, and removed based on vcs feedback
-let g:signify_vcs_list = [ 'git', 'hg' ]
+" syntastic -- use flake8 for checking python
+"let g:syntastic_python_checkers = ['flake8']
 
-" syntastic (git clone https://github.com/scrooloose/syntastic.git) - provides syntax checking for various languages
-let g:syntastic_python_checkers = ['flake8']
+" ctrlp
+" -- ignore searching certain directories
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" -- use cwd unless current file is outside cwd
+let g:ctrlp_working_path_mode = 'wa'
 
-" vaxe: https://github.com/jdonaldson/vaxe - provides haxe stuff
-" vinegar (git clone https://github.com/tpope/vim-vinegar.git) - provides some nice configuration and additions to netrw
-" airline (git clone https://github.com/bling/vim-airline) - vimscript powerline
-" pyflakes-pathogen (git clone https://github.com/mitechie/pyflakes-pathogen.git) - provides python syntax checking
-" recover: https://github.com/chrisbra/Recover.vima - add 'Diff' option when opening file with a swp file already existing
-" solarized color scheme: https://github.com/altercation/vim-colors-solarized
-" Paper Color theme https://github.com/NLKNguyen/papercolor-theme.git
+" vim:set ft=vim et sw=2:

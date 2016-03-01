@@ -2,3 +2,5 @@ fonts
 themes
 .vim/swap
 .vim/bundle
+.vim/.netrwhist
+
