@@ -88,8 +88,8 @@ set smartcase                   " ... unless they contain one or more capital le
 "" UI
 set nu                          " show line numbers
 set colorcolumn=80              " column 80 gets highlighted
-colorscheme PaperColor
-let g:airline_theme='PaperColor'
+"colorscheme PaperColor
+"let g:airline_theme='PaperColor'
 "if has('gui_running')
 "    set background=light
 "else
@@ -99,7 +99,7 @@ let g:airline_theme='PaperColor'
 "let g:solarized_termtrans = 1
 "colorscheme solarized
 "colorscheme Tomorrow-Night-Bright
-"colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night
 " highlight color of column in terminal
 "highlight ColorColumn ctermbg=238
 highlight clear SignColumn
@@ -134,8 +134,20 @@ au FileType html setl indentkeys-=*<Return>
 " set spell check and autowrap text in emails
 au FileType mail set spell spelllang=en_us fo+=aw
 
-" set folding method for python files
+" set folding method, etc for python files
 au FileType python set foldmethod=indent
+au BufNewFile,BufRead *.py set tabstop=4
+au BufNewFile,BufRead *.py set softtabstop=4
+au BufNewFile,BufRead *.py set shiftwidth=4
+au BufNewFile,BufRead *.py set expandtab
+au BufNewFile,BufRead *.py set autoindent
+au BufNewFile,BufRead *.py set fileformat=unix
+
+" html, js, and css tend to use 2 spaces... which is stupid, but whatever.
+au BufNewFile,BufRead *.html,*.css,*.js set tabstop=2
+au BufNewFile,BufRead *.html,*.css,*.js set softtabstop=2
+au BufNewFile,BufRead *.html,*.css,*.js set shiftwidth=2
+au BufNewFile,BufRead *.html,*.css,*.js set expandtab
 
 " nim should be inteded with 2 spaces
 au FileType nim setlocal shiftwidth=2 tabstop=2
