@@ -1,6 +1,9 @@
+bundle
+undo
+swap
+.netrwhist
+pluggged
+plugged
 fonts
 themes
-.vim/swap
-.vim/bundle
-.vim/.netrwhist
 

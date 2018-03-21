@@ -24,6 +24,9 @@ call plug#begin('~/.config/nvim/pluggged')
   " options and automatic handling for swapfile recovery
   Plug 'chrisbra/Recover.vim'
 
+  " rust fd, syn, form, syntastic integration and more
+  Plug 'rust-lang/rust.vim'
+
 call plug#end()
 
 
