@@ -15,11 +15,26 @@ call plug#begin('~/.vim/plugged')
     " syntax checking
     Plug 'scrooloose/syntastic'
 
+    " netrw
+    "Plug 'tpope/vim-vinegar'
+
 
     " ansible syntax for ansible-yaml, jinja2, and ansible-hosts
     Plug 'pearofducks/ansible-vim'
 
+    " typescript syntax
+    Plug 'leafgarland/typescript-vim'
+
 call plug#end()
+
+let g:netrw_liststyle = 3       " tree-style
+let g:netrw_banner = 0          " banner off by default, toggle with I
+let g:netrw_browse_split = 0    " open files in previous window
+let g:netrw_winsize = 25        " 25 % of width
+
+" use '-' to toggle netrw split
+nnoremap - :Lexplore<Return>
+
 
 colorscheme Tomorrow-Night-Eighties
 
@@ -59,7 +74,7 @@ au InsertEnter * :set number
 au InsertLeave * :set relativenumber
 
 set listchars=tab:>.,trail:.,extends:⇻,precedes:⇺    " 'list' mode character mappings
-set list					     " always show 'list' mode
+set list                                             " always show 'list' mode
 
 
 augroup CursorLine
@@ -105,10 +120,10 @@ endfunction
 nmap <silent> <Leader><space> :call <SID>StripTrailingWhitespace()<CR>
 
 
-au BufRead *.zcml set filetype=xml		" zcml == xml
-au BufRead *.md set filetype=markdown		" .md == markdown
+au BufRead *.zcml set filetype=xml          " zcml == xml
+au BufRead *.md set filetype=markdown       " .md == markdown
 
-au FileType html setl indentkeys-=*<Return>	" html does not get autoindent-on-return
+au FileType html setl indentkeys-=*<Return> " html does not get autoindent-on-return
 
 " html, js, and css tend to use 2 spaces... which is stupid, but whatever,
 " it's used more often than not so might as well play nice
@@ -136,3 +151,7 @@ nnoremap <Leader>e :lopen<Return>
 
 " VIM-AIRLINE
 let g:airline#extensions#syntastic#enabled = 1
+
+
+" TYPESCRIPT-VIM
+let g:typescript_indent_disable = 1
